@@ -1,0 +1,53 @@
+\documentclass[margin=1pt, convert={density=2000, size=5000}]{standalone}
+\usepackage{texPreamble}
+
+\pagecolor[RGB]{255,255,255}
+\begin{document}
+  \begin{tikzpicture}[scale=5, declare function={alpha=0.05;}]
+    \draw foreach \p in {-1,...,1} {(\p,-1)--(\p,1) (-1,\p)--(1,\p)};
+    
+    \coordinate (Ao) at (0,0);
+    \coordinate (Bo) at (0,1);
+    \coordinate (Co) at (1,1);
+    \coordinate (Do) at (1,0);
+    
+    \coordinate (At) at (0,0);
+    \coordinate (Bt) at (0,1);
+    \coordinate (Ct) at (-1,1);
+    \coordinate (Dt) at (-1,0);
+    
+    \coordinate (Ar) at (0,0);
+    \coordinate (Br) at (0,-1);
+    \coordinate (Cr) at (-1,-1);
+    \coordinate (Dr) at (-1,0);
+    
+    \coordinate (Af) at (0,0);
+    \coordinate (Bf) at (0,-1);
+    \coordinate (Cf) at (1,-1);
+    \coordinate (Df) at (1,0);
+
+    \foreach \n in {0,...,75}
+      {
+        %top right
+        \coordinate (Bo) at ($(Bo)!alpha!(Co)$); \draw (Ao) -- (Bo);
+        \coordinate (Co) at ($(Co)!alpha!(Do)$); \draw (Bo) -- (Co);
+        \coordinate (Do) at ($(Do)!alpha!(Ao)$); \draw (Co) -- (Do);
+        \coordinate (Ao) at ($(Ao)!alpha!(Bo)$); \draw (Do) -- (Ao);
+        %top left
+        \coordinate (Bt) at ($(Bt)!alpha!(Ct)$); \draw (At) -- (Bt);
+        \coordinate (Ct) at ($(Ct)!alpha!(Dt)$); \draw (Bt) -- (Ct);
+        \coordinate (Dt) at ($(Dt)!alpha!(At)$); \draw (Ct) -- (Dt);
+        \coordinate (At) at ($(At)!alpha!(Bt)$); \draw (Dt) -- (At);
+        %bottom left
+        \coordinate (Br) at ($(Br)!alpha!(Cr)$); \draw (Ar) -- (Br);
+        \coordinate (Cr) at ($(Cr)!alpha!(Dr)$); \draw (Br) -- (Cr);
+        \coordinate (Dr) at ($(Dr)!alpha!(Ar)$); \draw (Cr) -- (Dr);
+        \coordinate (Ar) at ($(Ar)!alpha!(Br)$); \draw (Dr) -- (Ar);
+        %bottom right
+        \coordinate (Bf) at ($(Bf)!alpha!(Cf)$); \draw (Af) -- (Bf);
+        \coordinate (Cf) at ($(Cf)!alpha!(Df)$); \draw (Bf) -- (Cf);
+        \coordinate (Df) at ($(Df)!alpha!(Af)$); \draw (Cf) -- (Df);
+        \coordinate (Af) at ($(Af)!alpha!(Bf)$); \draw (Df) -- (Af);
+      }
+  \end{tikzpicture}
+\end{document}
