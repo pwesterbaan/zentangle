@@ -1,3 +1,3 @@
-# zentangle
-
-<img src="zentangle.png" width="600">
+<p align="center">
+    <img src="zentangle.png" width="100%">
+</p>
