@@ -3,8 +3,11 @@
 
 \pagecolor[RGB]{255,255,255}
 \begin{document}
-\tikzset{line/.style={line width=0.001pt}}
+\newcommand\maxIter{100}
+\newcommand\lwa{0.001}
+\newcommand\lwb{0.00001}
   \begin{tikzpicture}[scale=5, declare function={alpha=0.05;}]
+    \tikzset{line/.style={line width=\lwa pt}}
     \draw[line] foreach \p in {-1,...,1} {(\p,-1)--(\p,1) (-1,\p)--(1,\p)};
     
     \coordinate (Ao) at (0,0);   \coordinate (Bo) at (0,1);
@@ -19,28 +22,30 @@
     \coordinate (Af) at (0,0);   \coordinate (Bf) at (0,-1);
     \coordinate (Cf) at (1,-1);  \coordinate (Df) at (1,0);
 
-    \foreach \n in {0,...,75}
-      {
-        %top right
-        \coordinate (Bo) at ($(Bo)!alpha!(Co)$); \draw[line] (Ao) -- (Bo);
-        \coordinate (Co) at ($(Co)!alpha!(Do)$); \draw[line] (Bo) -- (Co);
-        \coordinate (Do) at ($(Do)!alpha!(Ao)$); \draw[line] (Co) -- (Do);
-        \coordinate (Ao) at ($(Ao)!alpha!(Bo)$); \draw[line] (Do) -- (Ao);
-        %top left
-        \coordinate (Bt) at ($(Bt)!alpha!(Ct)$); \draw[line] (At) -- (Bt);
-        \coordinate (Ct) at ($(Ct)!alpha!(Dt)$); \draw[line] (Bt) -- (Ct);
-        \coordinate (Dt) at ($(Dt)!alpha!(At)$); \draw[line] (Ct) -- (Dt);
-        \coordinate (At) at ($(At)!alpha!(Bt)$); \draw[line] (Dt) -- (At);
-        %bottom left
-        \coordinate (Br) at ($(Br)!alpha!(Cr)$); \draw[line] (Ar) -- (Br);
-        \coordinate (Cr) at ($(Cr)!alpha!(Dr)$); \draw[line] (Br) -- (Cr);
-        \coordinate (Dr) at ($(Dr)!alpha!(Ar)$); \draw[line] (Cr) -- (Dr);
-        \coordinate (Ar) at ($(Ar)!alpha!(Br)$); \draw[line] (Dr) -- (Ar);
-        %bottom right
-        \coordinate (Bf) at ($(Bf)!alpha!(Cf)$); \draw[line] (Af) -- (Bf);
-        \coordinate (Cf) at ($(Cf)!alpha!(Df)$); \draw[line] (Bf) -- (Cf);
-        \coordinate (Df) at ($(Df)!alpha!(Af)$); \draw[line] (Cf) -- (Df);
-        \coordinate (Af) at ($(Af)!alpha!(Bf)$); \draw[line] (Df) -- (Af);
-      }
+    \foreach \n in {0,...,\maxIter}
+    {
+      \pgfmathsetlengthmacro\lineWidth{(\lwa*(\maxIter-\n)+\lwb*\n)/\maxIter}
+      \tikzset{line/.style={line width=\lineWidth}}
+      %top right
+      \coordinate (Bo) at ($(Bo)!alpha!(Co)$); \draw[line] (Ao) -- (Bo);
+      \coordinate (Co) at ($(Co)!alpha!(Do)$); \draw[line] (Bo) -- (Co);
+      \coordinate (Do) at ($(Do)!alpha!(Ao)$); \draw[line] (Co) -- (Do);
+      \coordinate (Ao) at ($(Ao)!alpha!(Bo)$); \draw[line] (Do) -- (Ao);
+      %top left
+      \coordinate (Bt) at ($(Bt)!alpha!(Ct)$); \draw[line] (At) -- (Bt);
+      \coordinate (Ct) at ($(Ct)!alpha!(Dt)$); \draw[line] (Bt) -- (Ct);
+      \coordinate (Dt) at ($(Dt)!alpha!(At)$); \draw[line] (Ct) -- (Dt);
+      \coordinate (At) at ($(At)!alpha!(Bt)$); \draw[line] (Dt) -- (At);
+      %bottom left
+      \coordinate (Br) at ($(Br)!alpha!(Cr)$); \draw[line] (Ar) -- (Br);
+      \coordinate (Cr) at ($(Cr)!alpha!(Dr)$); \draw[line] (Br) -- (Cr);
+      \coordinate (Dr) at ($(Dr)!alpha!(Ar)$); \draw[line] (Cr) -- (Dr);
+      \coordinate (Ar) at ($(Ar)!alpha!(Br)$); \draw[line] (Dr) -- (Ar);
+      %bottom right
+      \coordinate (Bf) at ($(Bf)!alpha!(Cf)$); \draw[line] (Af) -- (Bf);
+      \coordinate (Cf) at ($(Cf)!alpha!(Df)$); \draw[line] (Bf) -- (Cf);
+      \coordinate (Df) at ($(Df)!alpha!(Af)$); \draw[line] (Cf) -- (Df);
+      \coordinate (Af) at ($(Af)!alpha!(Bf)$); \draw[line] (Df) -- (Af);
+    }
   \end{tikzpicture}
 \end{document}
